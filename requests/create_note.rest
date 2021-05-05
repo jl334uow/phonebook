@@ -1,4 +1,4 @@
-POST http://localhost:3001/api/persons
+POST https://safe-oasis-25800.herokuapp.com/api/persons
 Content-type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-type: application/json
 
 ###
 
-POST http://localhost:3001/api/persons
+POST https://safe-oasis-25800.herokuapp.com/api/persons
 Content-type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-type: application/json
 
 ###
 
-POST http://localhost:3001/api/persons
+POST https://safe-oasis-25800.herokuapp.com/api/persons
 Content-type: application/application/json
 
 {
@@ -27,7 +27,7 @@ Content-type: application/application/json
 
 ###
 
-POST http://localhost:3001/api/persons
+POST https://safe-oasis-25800.herokuapp.com/api/persons
 Content-type: application/json
 
 {
@@ -36,4 +36,4 @@ Content-type: application/json
 }
 
 ###
-DELETE http://localhost:3001/api/persons/1
+DELETE https://safe-oasis-25800.herokuapp.com/api/persons/78

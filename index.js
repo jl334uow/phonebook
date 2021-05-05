@@ -8,7 +8,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny', {stream: appLogStream}))
-
+app.use(express.static('build'))
 let persons = [
     { 
       "name": "Arto Hellas", 
