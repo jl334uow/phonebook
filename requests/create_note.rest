@@ -1,4 +1,4 @@
-POST https://safe-oasis-25800.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-type: application/json
 
 {
