@@ -2,23 +2,23 @@ POST http://localhost:3001/api/persons
 Content-type: application/json
 
 {
-    "name":"Athena Ho",
-    "number":"0450199081"
+    "name":"Wiiliam KA",
+    "number":"2162"
 }
 
 ###
 
-POST https://safe-oasis-25800.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-type: application/json
 
 {
     "name":"Justin Lu",
-    "number":"0468403004"
+    "number":"1234567890"
 }
 
 ###
 
-POST https://safe-oasis-25800.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-type: application/application/json
 
 {
@@ -27,7 +27,7 @@ Content-type: application/application/json
 
 ###
 
-POST https://safe-oasis-25800.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-type: application/json
 
 {
@@ -36,4 +36,4 @@ Content-type: application/json
 }
 
 ###
-DELETE https://safe-oasis-25800.herokuapp.com/api/persons/78
+DELETE http://localhost:3001/api/persons/60a054b3d57bf006fc6621ea
