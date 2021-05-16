@@ -1753,3 +1753,15 @@ POST /api/persons 200 64 - 43.962 ms
 GET /api/persons 200 272 - 10.913 ms
 GET /favicon.ico 200 3870 - 0.371 ms
 GET /api/persons 200 272 - 12.861 ms
+GET /api/persons 200 341 - 317.881 ms
+GET /favicon.ico 200 3870 - 1.746 ms
+GET /api/persons/60953d711664193fa808f2e7 200 4 - 2803.477 ms
+GET /api/persons 304 - - 200.843 ms
+GET /api/persons 304 - - 195.404 ms
+GET /favicon.ico 200 3870 - 1.786 ms
+GET / 200 2219 - 1.372 ms
+GET /static/css/main.241de4ea.chunk.css 200 172 - 1.130 ms
+GET /static/js/main.e101a26c.chunk.js 200 3240 - 2.310 ms
+GET /static/js/2.3892dfb1.chunk.js 200 147782 - 1.686 ms
+GET /static/css/main.241de4ea.chunk.css.map 200 412 - 0.555 ms
+GET /api/persons 200 341 - 168.186 ms

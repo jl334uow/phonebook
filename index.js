@@ -6,11 +6,11 @@ const path = require('path')
 const app = express()
 const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'), { flags: 'a' })
 const cors = require('cors')
+
 app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny', {stream: appLogStream}))
 app.use(express.static('build'))
-
 const Person = require('./models/person')
 
 app.post('/api/persons', (request, response) => {
@@ -58,19 +58,21 @@ app.get('/api/persons', (request, response) => {
 })
 
 //searching for an individual person
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
     const person = Person.findById(request.params.id)
     .then(
         person => {
-            response.json(person)
+            if(person){
+                response.json(person)
+            } else{
+                response.status(404).end()
+            }
         }
     )
-    .catch(()=>{
-        response.status(404).end()
-    })
+    .catch(error => next(error))
 })
 
-//
+//info of database
 app.get('/info', (request, response) =>{
     var d = new Date()
     Person.count({}).then(
@@ -90,6 +92,23 @@ app.delete('/api/persons/:id', (request, response) => {
     .catch(error => next(error))
     
 })
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({error: 'unknown endpoint'})
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+    console.error(error.message)
+    if(error.name === 'CastError'){
+        return response.status(400).send({error: 'malformed id'})
+    }
+    
+    next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
