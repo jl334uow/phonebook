@@ -8,8 +8,16 @@ const url =
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true})
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: Number
+    name: {
+        type: String,
+        minLength: 1,
+        required: true
+    },
+    number: {
+        type: Number,
+        minLength: 1,
+        required: true
+    }
 })
 
 const Person = mongoose.model('Person', personSchema)

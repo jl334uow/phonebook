@@ -12,8 +12,9 @@ app.use(express.json())
 app.use(morgan('tiny', {stream: appLogStream}))
 app.use(express.static('build'))
 const Person = require('./models/person')
+const { update } = require('./models/person')
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
     //check empty fields
     if(body.name == undefined || body.number == undefined){
@@ -22,25 +23,27 @@ app.post('/api/persons', (request, response) => {
             error: 'content missing'
         })
     }
+
+    //make new person
+    const person = new Person({
+        name: body.name,
+        number: body.number
+        })
+
     //find if name already exists
     Person.findOne({name:body.name})
     .then(p => {
         if(p){
-            return response.status(400).json({
-                error: 'cannot have the same name'
-            })
+            console.log('name already exists')
         } else{
-            //make new person
-            const person = new Person({
-            name: body.name,
-            number: body.number
-            })
 
             //save person to database
-            person.save().then(result => {
-            response.json(result)
-            console.log('person saved!')
+            person.save()
+            .then(result => {
+                response.json(result)
+                console.log('person saved!')
             })
+            .catch(error => next(error))
         }
     })
     .catch(error => {
@@ -48,6 +51,21 @@ app.post('/api/persons', (request, response) => {
         response.status(500).end()
     })
     
+})
+
+//updating an indiivdual person
+app.put('/api/persons/:id', (request, response) =>{
+    const body = request.body
+    
+    const person = {
+        name: body.name,
+        number: body.number
+    }
+    Person.findByIdAndUpdate(request.params.id,person)
+    .then(updatedPerson =>{
+        response.json(updatedPerson)
+    })
+    .catch(error => next(error))
 })
 
 //searching for persons in the array
@@ -97,16 +115,20 @@ const unknownEndpoint = (request, response) => {
     response.status(404).send({error: 'unknown endpoint'})
 }
 
+//activates if the URI is invalid
 app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
     if(error.name === 'CastError'){
         return response.status(400).send({error: 'malformed id'})
+    } else if(error.name === 'ValidationError'){
+        return response.status(400).send({error: error.message})
     }
     
     next(error)
 }
+
 
 app.use(errorHandler)
 
